@@ -1,0 +1,168 @@
+{% include 'merchant_home_buttons_head.html' %}
+
+
+
+{#<table align="left" width="200">#}
+{#    <tr align="center"><br>#}
+{#        <th>#}
+{##}
+{#<div class="bg-light border-right" id="sidebar-wrapper">#}
+{##}
+{#      <div class="list-group list-group-flush">#}
+{#        <a href="{% url 'addproducts' %}" class="list-group-item list-group-item-action bg-light">ADD PRODUCT</a>#}
+{#        <a href="#" class="list-group-item list-group-item-action bg-light"></a>#}
+{#        <a href="#" class="list-group-item list-group-item-action bg-light"></a>#}
+{#        <a href="#" class="list-group-item list-group-item-action bg-light"></a>#}
+{#        <a href="#" class="list-group-item list-group-item-action bg-light"></a>#}
+{#        <a href="#" class="list-group-item list-group-item-action bg-light"></a>#}
+{#      </div>#}
+{#    </div>#}
+{##}
+{#</th>#}
+{#    </tr>#}
+{#    #}
+{#    </table>#}
+
+<body>
+<br>
+
+
+<form action="{% url 'button_action' %}" method="post">
+    {% csrf_token %}
+<table align="center" >
+    <tr>
+        <th>
+
+
+
+{% if not product_data %}
+            <table align="center" border="2">
+                <tr align="center" style="background-color: #00c6fb">
+                    <th colspan="2" align="center">ADD PRODUCT</th>
+                </tr>
+
+                <tr style="background-color: #ba8b00">
+                    <th align="center"><label>PRODUCT NO</label></th>
+                    <th><input type="text"  name="product_no" placeholder="PRODUCT NO"></th>
+                </tr>
+                <tr style="background-color: #ba8b00">
+                    <th align="center"><label>PRODUCT NAME</label></th>
+                    <th><input type="text"  name="product_name" placeholder="PRODUCT NAME"></th>
+                </tr>
+
+                <tr style="background-color: #ba8b00">
+                    <th align="center"><label>PRICE</label></th>
+                    <th><input type="text"  name="price" placeholder="PRICE"></th>
+                </tr>
+
+                <tr style="background-color: #ba8b00">
+                    <th align="center"><label>QUANTITY</label></th>
+                    <th><input type="text"  name="quantity" placeholder="QUANTITY"></th><br>
+                </tr>
+
+                <tr style="background-color: #ba8b00">
+                    <th align="center"><label>MERCHANT ID</label></th>
+                    <th><input type="text"  name="merchant_id" placeholder="MERCHANT ID"></th><br>
+                </tr>
+
+                {% if message %}
+                    <tr align="center" style="background-color: #ba8b00">
+                    <th colspan="2" style="align-content: center">
+                        {{ message }}
+                    </th>
+                </tr>
+                {% endif %}
+
+
+                <tr align="center" style="background-color: #ba8b00">
+                    <th colspan="2" style="align-content: center">
+                        <button type="submit" name="btn" value="save">Save</button>
+                    </th>
+                </tr>
+            </table>
+{% endif %}
+
+        </th>
+        <th><t></t></th>
+
+    {% if data %}
+        <th>
+            <table align="center" border="2">
+                <tr align="center" style="background-color: #727b84 ">
+                    <th colspan="6" style="color: white">PRODUCT DETAILS</th>
+                </tr>
+
+                <tr style="background-color: #ba8b00">
+                    <th>PRODUCT NO</th>
+                    <th>PRODUCT NAME</th>
+                    <th>PRODUCT PRICE</th>
+                    <th>PRODUCT QUANTITY</th>
+                    <th>PRODUCT UPDATE</th>
+                    <th>PRODUCT DELETE</th>
+                </tr>
+
+                {% for x in data %}
+                <tr align="center">
+                    <th>{{ x.fields.PRODUCT_NO }}</th>
+                    <th>{{ x.fields.PRODUCT_NAME }}</th>
+                    <th>{{ x.fields.PRODUCT_PRICE }}</th>
+                    <th>{{ x.fields.PRODUCT_QUANTITY }}</th>
+                    <th>
+                        <a href="{% url 'update_product' %}?id={{ x.fields.PRODUCT_NO }}">UPDATE</a>
+                    </th>
+                    <th>
+                        <a href="{% url 'delete_product' %}?id={{ x.fields.PRODUCT_NO }}">DELETE</a>
+                    </th>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </th>.
+    {% endif %}
+
+    {% if product_data %}
+
+        <th>
+
+              <table align="center" border="2">
+                <tr align="center" style="background-color: #00c6fb">
+                    <th colspan="2" align="center">UPDATE PRODUCT</th>
+                </tr>
+
+                <tr style="background-color: #ba8b00">
+                    <th align="center"><label>PRODUCT NO</label></th>
+                    <th><input type="text"  name="product_no" value="{{ product_data.PRODUCT_NO }}"></th>
+                </tr>
+                <tr style="background-color: #ba8b00">
+                    <th align="center"><label>PRODUCT NAME</label></th>
+                    <th><input type="text"  name="product_name" value="{{ product_data.PRODUCT_NAME }}"></th>
+                </tr>
+
+                <tr style="background-color: #ba8b00">
+                    <th align="center"><label>PRICE</label></th>
+                    <th><input type="text"  name="price" value="{{ product_data.PRODUCT_PRICE }}"></th>
+                </tr>
+
+                <tr style="background-color: #ba8b00">
+                    <th align="center"><label>QUANTITY</label></th>
+                    <th><input type="text"  name="quantity" value="{{ product_data.PRODUCT_QUANTITY }}"></th><br>
+                </tr>
+
+
+                <tr align="center" style="background-color: #ba8b00">
+                    <th colspan="2" style="align-content: center">
+                        <button type="submit" name="btn" value="update">UPDATE</button>
+                    </th>
+                </tr>
+            </table>
+
+
+        </th>
+    {% endif %}
+    </tr>
+</table>
+</form>
+
+
+
+</body>
